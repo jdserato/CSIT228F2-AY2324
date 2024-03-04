@@ -1,5 +1,6 @@
 package Bingo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BingoGame implements Runnable{
@@ -15,6 +16,12 @@ public class BingoGame implements Runnable{
         for (BingoCard card : cards) {
             System.out.println("Card " + card.id);
             System.out.println(card);
+        }
+        List<Thread> threads = new ArrayList<>();
+        for (BingoCard card : cards) {
+            threads.add(new Thread(new BingoPatternPlus(card)));
+        }for (Thread t : threads) {
+            t.start();
         }
         // TODO loop while not bingo
         /*
