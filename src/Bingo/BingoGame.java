@@ -3,7 +3,7 @@ package Bingo;
 import java.util.List;
 
 public class BingoGame implements Runnable{
-    boolean[] result;
+    static boolean[] result;
     boolean bingo; // make this shared
     List<BingoCard> cards;
 
@@ -16,5 +16,14 @@ public class BingoGame implements Runnable{
             System.out.println("Card " + card.id);
             System.out.println(card);
         }
+        // TODO loop while not bingo
+        /*
+        - generate a random number num
+        - outputs the number chosen
+        - prints out all numbers chosen numerically
+        - set to true the result[num]
+        - notifies those waiting for result
+        - sleeps for 300 milliseconds
+         */
     }
 }
