@@ -1,6 +1,8 @@
 package Bingo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class BingoCard {
     List<Integer> numbers;
@@ -9,14 +11,22 @@ public class BingoCard {
 
     public BingoCard(int id) {
         this.id = id;
-        /* TODO to store random numbers
-         * 5 random numbers each
-         * B: 01-15
-         * I: 16-30
-         * N: 31-45 (3rd element is 0)
-         * G: 46-60
-         * O: 61-75
-         */
+        nums = new int[5][5];
+        Random r = new Random();
+        numbers = new ArrayList<>();
+        for (int col = 0; col < 5; col++) {
+            for (int row = 0; row < 5; row++) {
+                if (row == 2 && col == 2) {
+                    continue;
+                }
+                int rand;
+                do {
+                    rand = (15 * col) + r.nextInt(15) + 1;
+                } while (numbers.contains(rand));
+                numbers.add(rand);
+                nums[row][col] = rand;
+            }
+        }
     }
 
     @Override
@@ -24,7 +34,7 @@ public class BingoCard {
         StringBuilder sb = new StringBuilder();
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
-                sb.append(numbers.get(col*5+row)).append("\t");
+//                sb.append(numbers.get(col*5+row)).append("\t");
                 sb.append(nums[row][col]).append("\t");
             }
             sb.append("\n");

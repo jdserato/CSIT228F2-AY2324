@@ -23,5 +23,27 @@ public abstract class BingoPattern implements Runnable{
             - stops all other threads
         - can be interrupted and when so, output "Card [id] loses"
          */
+        Thread[] threads = new Thread[checkers.size()];
+        for (int i = 0; i < checkers.size(); i++) {
+            threads[i] = new Thread(checkers.get(i));
+        }
+        for (Thread t : threads) {
+            t.start();
+        }
+        for (Thread t : threads) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                System.out.println("Card " + card.id + " loses");
+                for (Thread t1 : threads) {
+                    t1.interrupt();
+                }
+                return;
+            }
+        }
+        BingoGame.bingo = true;
+        System.out.println("Card " + card.id + " completes pattern " + this.getClass().toString());
+        System.out.println(card);
+
     }
 }
